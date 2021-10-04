@@ -384,4 +384,15 @@ public class Elasticsearch {
 
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("investigations")
+    public String investigations(@Context HttpServletRequest request, @QueryParam("maxResults") int maxResults)
+            throws ElasticsearchException, IOException {
+
+        return "";
+
+    }
+
 }
