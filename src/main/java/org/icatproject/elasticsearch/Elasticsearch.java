@@ -1,20 +1,81 @@
 package org.icatproject.elasticsearch;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.json.stream.JsonGenerator;
+import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParser.Event;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.core.TimeValue;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+
+import org.icatproject.elasticsearch.exceptions.ElasticsearchException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 /* Mapped name is to avoid name clashes */
 @Path("/")
 @Stateless
 public class Elasticsearch {
+
+    enum AttributeName {
+        type, name, value, date, store
+    }
+
+    enum When {
+        Now, Sometime
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger(Elasticsearch.class);
+    private static final Marker fatal = MarkerFactory.getMarker("FATAL");
+
+    private String required_property;
+    private String message;
+
+    private final String index;
+    private final String host;
+    private final int port;
+    private final String protocol;
+    private final RestHighLevelClient esClient;
+
+    public Elasticsearch() {
+        this.index = "investigations";
+        this.protocol = "http";
+        this.host = "localhost";
+        this.port = 9200;
+        esClient = new RestHighLevelClient(
+                RestClient.builder(new HttpHost(host, port, protocol)));
+    }
 
     @PostConstruct
     private void init() {
