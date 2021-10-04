@@ -189,4 +189,90 @@ public class Elasticsearch {
 
     }
 
+    private void add(HttpServletRequest request, String entityName, When when, JsonParser parser, Long id) throws ElasticsearchException, IOException {
+        //IndexBucket bucket = indexBuckets.computeIfAbsent(entityName, k -> createBucket(k));
+
+        AttributeName attName = null;
+//        FieldType fType = null;
+        String name = null;
+        String value = null;
+        Double dvalue = null;
+//        Document doc = new Document();
+        Map<String, Object> jsonMap = new HashMap<>();;
+        parser.next(); // Skip the [
+        while (parser.hasNext()) {
+            Event ev = parser.next();
+            if (ev == Event.KEY_NAME) {
+                try {
+                    attName = AttributeName.valueOf(parser.getString());
+                } catch (Exception e) {
+                    throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST,
+                            "Found unknown field type " + e.getMessage());
+                }
+            } else if (ev == Event.VALUE_STRING) {
+                if (attName == AttributeName.type) {
+                    try {
+                        // fType = FieldType.valueOf(parser.getString());
+                    } catch (Exception e) {
+                        throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST,
+                                "Found unknown field type " + e.getMessage());
+                    }
+                } else if (attName == AttributeName.name) {
+                    name = parser.getString();
+                } else if (attName == AttributeName.value) {
+                    value = parser.getString();
+                } else {
+                    throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST, "Bad VALUE_STRING " + attName);
+                }
+            } else if (ev == Event.VALUE_NUMBER) {
+//                long num = parser.getLong();
+//                if (fType == FieldType.SortedDocValuesField) {
+//                    value = Long.toString(num);
+//                } else if (fType == FieldType.DoubleField) {
+//                    dvalue = parser.getBigDecimal().doubleValue();
+//                } else {
+//                    throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST,
+//                            "Bad VALUE_NUMBER " + attName + " " + fType);
+//                }
+            } else if (ev == Event.VALUE_TRUE) {
+//                if (attName == AttributeName.store) {
+//                    store = Store.YES;
+//                } else {
+//                    throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST, "Bad VALUE_TRUE " + attName);
+//                }
+            } else if (ev == Event.START_OBJECT) {
+//                fType = null;
+//                name = null;
+//                value = null;
+//                store = Store.NO;
+            } else if (ev == Event.END_OBJECT) {
+                System.out.println("TextField");
+                System.out.println(name + ":" + value);
+                jsonMap.put(name, value);
+
+//                if (fType == FieldType.TextField) {
+//                    doc.add(new TextField(name, value, store));
+//                } else if (fType == FieldType.StringField) {
+//                    doc.add(new StringField(name, value, store));
+//                } else if (fType == FieldType.SortedDocValuesField) {
+//                    doc.add(new SortedDocValuesField(name, new BytesRef(value)));
+//                } else if (fType == FieldType.DoubleField) {
+//                    doc.add(new DoubleField(name, dvalue, store));
+//                }
+            } else if (ev == Event.END_ARRAY) {
+                System.out.println(jsonMap.toString());
+                if (id == null) {
+                    IndexRequest indexRequest = new IndexRequest(entityName.toLowerCase()).source(jsonMap);
+                    esClient.index(indexRequest, RequestOptions.DEFAULT);
+                } else {
+                    UpdateRequest updateRequest = new UpdateRequest(entityName.toLowerCase(), id.toString()).doc(jsonMap);
+                    esClient.update(updateRequest, RequestOptions.DEFAULT);
+                }
+                return;
+            } else {
+                throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST, "Unexpected token in Json: " + ev);
+            }
+        }
+    }
+
 }
