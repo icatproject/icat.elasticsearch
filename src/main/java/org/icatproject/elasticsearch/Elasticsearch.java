@@ -391,7 +391,48 @@ public class Elasticsearch {
     public String investigations(@Context HttpServletRequest request, @QueryParam("maxResults") int maxResults)
             throws ElasticsearchException, IOException {
 
-        return "";
+        JsonReader r = Json.createReader(request.getInputStream());
+        JsonObject o = r.readObject();
+        String text = o.getString("text");
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.query(QueryBuilders.matchQuery("text", text));
+        sourceBuilder.from(0);
+        sourceBuilder.size(maxResults);
+        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices(entityType);
+        searchRequest.source(sourceBuilder);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JsonGenerator gen = Json.createGenerator(baos);
+        gen.writeStartObject();
+        gen.writeStartArray("results");
+        SearchHit[] searchHit = null;
+        Map<String, Object> map = null;
+        try {
+            SearchResponse searchResponse = null;
+            searchResponse = esClient.search(searchRequest, RequestOptions.DEFAULT);
+            if (searchResponse.getHits().getTotalHits().value > 0) {
+                searchHit = searchResponse.getHits().getHits();
+                for (SearchHit hit : searchHit) {
+                    gen.writeStartObject();
+                    map = hit.getSourceAsMap();
+                    for (Map.Entry<String, Object> entry : map.entrySet()) {
+                        System.out.println(entry.getKey() + " => " + entry.getValue().toString());
+                        gen.write(entry.getKey(), entry.getValue().toString());
+                    }
+                    gen.writeEnd();
+                }
+                gen.writeEnd(); // array results
+                gen.writeEnd(); // object
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        gen.close();
+        System.out.println("Hello: " + baos.toString());
+        return baos.toString();
 
     }
 
