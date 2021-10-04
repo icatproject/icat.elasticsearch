@@ -131,4 +131,62 @@ public class Elasticsearch {
         gen.close();
         return baos.toString();
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("modify")
+    public void modify(@Context HttpServletRequest request) throws ElasticsearchException {
+
+        logger.debug("Requesting modify");
+        int count = 0;
+
+        try (JsonParser parser = Json.createParser(request.getInputStream())) {
+            Event ev = parser.next();
+            if (ev != Event.START_ARRAY) {
+                throw new ElasticsearchException(HttpURLConnection.HTTP_INTERNAL_ERROR, "Unexpected " + ev.name());
+            }
+            ev = parser.next();
+            while (true) {
+                if (ev == Event.END_ARRAY) {
+                    break;
+                }
+                if (ev != Event.START_ARRAY) {
+                    throw new ElasticsearchException(HttpURLConnection.HTTP_INTERNAL_ERROR, "Unexpected " + ev.name());
+                }
+                ev = parser.next();
+                String entityName = parser.getString();
+                ev = parser.next();
+                Long id = (ev == Event.VALUE_NULL) ? null : parser.getLong();
+                ev = parser.next();
+                if (ev == Event.VALUE_NULL) {
+//                    try {
+//                        IndexBucket bucket = indexBuckets.computeIfAbsent(entityName, k -> createBucket(k));
+//                        if (bucket.locked.get()) {
+//                            throw new ElasticsearchException(HttpURLConnection.HTTP_NOT_ACCEPTABLE,
+//                                    "Lucene locked for " + entityName);
+//                        }
+//                        bucket.indexWriter.deleteDocuments(new Term("id", Long.toString(id)));
+//                    } catch (IOException e) {
+//                        throw new ElasticsearchException(HttpURLConnection.HTTP_INTERNAL_ERROR, e.getMessage());
+//                    }
+                } else {
+                    System.out.println("Modify call");
+                    System.out.println(entityName);
+                    System.out.println(When.Sometime);
+                    System.out.println(id);
+                    add(request, entityName, When.Sometime, parser, id);
+                }
+                ev = parser.next(); // end of triple
+                count++;
+                ev = parser.next(); // either end of input or start of new
+                // triple
+            }
+
+        } catch (IOException e) {
+            throw new ElasticsearchException(HttpURLConnection.HTTP_INTERNAL_ERROR, e.getMessage());
+        }
+        logger.debug("Modified {} documents", count);
+
+    }
+
 }
