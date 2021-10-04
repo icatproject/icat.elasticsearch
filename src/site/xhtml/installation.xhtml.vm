@@ -1,0 +1,111 @@
+<html>
+<head>
+<title>installation</title>
+</head>
+<body>
+
+	<h1>Installation</h1>
+
+	<h2>Compatibility</h2>
+	This plugin will work with an ICAT version of 4.9.0 or greater.
+
+	<h2>Prerequisites</h2>
+
+	<ul>
+		<li>
+			The icat_skeleton distribution:
+			<a href="${repoUrl}/org/icatproject/icat.skeleton/${project.version}/icat.skeleton-${project.version}-distro.zip">
+				icat_skeleton-${project.version}-distro.zip
+			</a>
+		</li>
+		<li>
+			A suitable deployed container (here assumed to be Glassfish/Payara)
+			to support a web application. Testing has been carried out with payara41.
+			<a href="http://icatproject.org/installation/glassfish/">
+				Glassfish/Payara installation instructions
+			</a>
+			are available.
+		</li>
+
+		<li>Python (version 2.4 to 2.7) installed on the server.</li>
+	</ul>
+
+
+	<h2>Summary of steps</h2>
+	<ol>
+		<li>
+			Please follow
+			<a href="http://icatproject.org/installation/component/">
+				the generic installation instructions
+			</a>
+		</li>
+		<li>
+			Check that it works.
+		</li>
+	</ol>
+
+
+	<h2>The setup.properties file</h2>
+	<dl>
+		<dt>container</dt>
+		<dd>
+			Values must be chosen from:
+			<a target="_blank" href="http://www.eclipse.org/eclipselink/api/2.6/org/eclipse/persistence/config/TargetServer.html">
+				TargetServer
+			</a>
+			Though only Glassfish is working properly at the moment.
+		</dd>
+		<dt>home</dt>
+		<dd>
+			is the top level of the container installation.
+			For Glassfish it must contain "glassfish/domains" and
+			for JBoss (wildfly) it must contain jboss-modules.jar.
+		</dd>
+		<dt>port</dt>
+		<dd>
+			is the administration port of the container
+			which is typically 4848 for Glassfish and 9990 for JBoss.
+		</dd>
+		<dt>secure</dt>
+		<dd>
+			must be set to true or false.
+			If true then only https and not http connections will be allowed.
+		</dd>
+	</dl>
+
+
+	<h2>The logback.xml file</h2>
+	<p>
+		If you wish to modify the provided logging levels then rename
+		logback.xml.example to logback.xml and edit it to suit your needs.
+	</p>
+
+
+	<h2>The run.properties file</h2>
+	<dl>
+		<dt>required_property</dt>
+		<dd>
+			a dummy example of a property that is required for this component.
+		</dd>
+		<dt>message</dt>
+		<dd>
+			if specified will be returned by the REST API on the "message" endpoint.
+		</dd>
+	</dl>
+
+
+	<h2>Check that icat.skeleton works</h2>
+	<p>
+		A simple standalone test is to run:
+		<blockquote>
+			<code>curl -k https://localhost:8181/icat.skeleton/version -w "\n"</code>
+			which should return the version,<br />
+			<code>curl -k https://localhost:8181/icat.skeleton/message -w "\n"</code>
+			which should either return the message or get mapped to a 404 error, and <br />
+			<code>curl -k https://localhost:8181/icat.skeleton/hello -w "\n"</code>
+			which should return Hello World<br />
+		</blockquote>
+	</p>
+
+</body>
+</html>
