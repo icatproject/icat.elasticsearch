@@ -170,16 +170,11 @@ public class Elasticsearch {
 //                        throw new ElasticsearchException(HttpURLConnection.HTTP_INTERNAL_ERROR, e.getMessage());
 //                    }
                 } else {
-                    System.out.println("Modify call");
-                    System.out.println(entityName);
-                    System.out.println(When.Sometime);
-                    System.out.println(id);
                     add(request, entityName, When.Sometime, parser, id);
                 }
-                ev = parser.next(); // end of triple
+                ev = parser.next();
                 count++;
-                ev = parser.next(); // either end of input or start of new
-                // triple
+                ev = parser.next();
             }
 
         } catch (IOException e) {
@@ -190,16 +185,14 @@ public class Elasticsearch {
     }
 
     private void add(HttpServletRequest request, String entityName, When when, JsonParser parser, Long id) throws ElasticsearchException, IOException {
-        //IndexBucket bucket = indexBuckets.computeIfAbsent(entityName, k -> createBucket(k));
 
         AttributeName attName = null;
-//        FieldType fType = null;
         String name = null;
         String value = null;
         Double dvalue = null;
-//        Document doc = new Document();
+
         Map<String, Object> jsonMap = new HashMap<>();;
-        parser.next(); // Skip the [
+        parser.next();
         while (parser.hasNext()) {
             Event ev = parser.next();
             if (ev == Event.KEY_NAME) {
@@ -212,7 +205,7 @@ public class Elasticsearch {
             } else if (ev == Event.VALUE_STRING) {
                 if (attName == AttributeName.type) {
                     try {
-                        // fType = FieldType.valueOf(parser.getString());
+                        // TODO
                     } catch (Exception e) {
                         throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST,
                                 "Found unknown field type " + e.getMessage());
@@ -225,48 +218,24 @@ public class Elasticsearch {
                     throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST, "Bad VALUE_STRING " + attName);
                 }
             } else if (ev == Event.VALUE_NUMBER) {
-//                long num = parser.getLong();
-//                if (fType == FieldType.SortedDocValuesField) {
-//                    value = Long.toString(num);
-//                } else if (fType == FieldType.DoubleField) {
-//                    dvalue = parser.getBigDecimal().doubleValue();
-//                } else {
-//                    throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST,
-//                            "Bad VALUE_NUMBER " + attName + " " + fType);
-//                }
+                // TODO
             } else if (ev == Event.VALUE_TRUE) {
-//                if (attName == AttributeName.store) {
-//                    store = Store.YES;
-//                } else {
-//                    throw new ElasticsearchException(HttpURLConnection.HTTP_BAD_REQUEST, "Bad VALUE_TRUE " + attName);
-//                }
+                // TODO
             } else if (ev == Event.START_OBJECT) {
-//                fType = null;
-//                name = null;
-//                value = null;
-//                store = Store.NO;
+                // TODO
             } else if (ev == Event.END_OBJECT) {
-                System.out.println("TextField");
-                System.out.println(name + ":" + value);
                 jsonMap.put(name, value);
 
-//                if (fType == FieldType.TextField) {
-//                    doc.add(new TextField(name, value, store));
-//                } else if (fType == FieldType.StringField) {
-//                    doc.add(new StringField(name, value, store));
-//                } else if (fType == FieldType.SortedDocValuesField) {
-//                    doc.add(new SortedDocValuesField(name, new BytesRef(value)));
-//                } else if (fType == FieldType.DoubleField) {
-//                    doc.add(new DoubleField(name, dvalue, store));
-//                }
             } else if (ev == Event.END_ARRAY) {
                 System.out.println(jsonMap.toString());
                 if (id == null) {
-                    IndexRequest indexRequest = new IndexRequest(entityName.toLowerCase()).source(jsonMap);
-                    esClient.index(indexRequest, RequestOptions.DEFAULT);
+                    esClient.index(
+                            new IndexRequest(entityName.toLowerCase())
+                                    .source(jsonMap), RequestOptions.DEFAULT);
                 } else {
-                    UpdateRequest updateRequest = new UpdateRequest(entityName.toLowerCase(), id.toString()).doc(jsonMap);
-                    esClient.update(updateRequest, RequestOptions.DEFAULT);
+                    esClient.update(
+                            new UpdateRequest(entityName.toLowerCase(), id.toString())
+                                    .doc(jsonMap), RequestOptions.DEFAULT);
                 }
                 return;
             } else {
@@ -277,44 +246,37 @@ public class Elasticsearch {
 
     private String searchResult(String entityType, String text, int maxResults) {
 
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(QueryBuilders.matchQuery("text", text));
-        sourceBuilder.from(0);
-        sourceBuilder.size(maxResults);
-        sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS));
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder()
+                .query(QueryBuilders.matchQuery("text", text))
+                .from(0)
+                .size(maxResults)
+                .timeout(new TimeValue(60, TimeUnit.SECONDS));
 
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices(entityType);
-        searchRequest.source(sourceBuilder);
+        SearchRequest searchRequest = new SearchRequest()
+                .indices(entityType)
+                .source(sourceBuilder);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator gen = Json.createGenerator(baos);
-        gen.writeStartObject();
-        gen.writeStartArray("results");
-        SearchHit[] searchHit = null;
-        Map<String, Object> map = null;
-        try {
-            SearchResponse searchResponse = null;
-            searchResponse = esClient.search(searchRequest, RequestOptions.DEFAULT);
-            if (searchResponse.getHits().getTotalHits().value > 0) {
-                searchHit = searchResponse.getHits().getHits();
-                for (SearchHit hit : searchHit) {
-                    gen.writeStartObject();
-                    map = hit.getSourceAsMap();
-                    for (Map.Entry<String, Object> entry : map.entrySet()) {
-                        System.out.println(entry.getKey() + " => " + entry.getValue().toString());
-                        gen.write(entry.getKey(), entry.getValue().toString());
+        try (JsonGenerator gen = Json.createGenerator(baos)) {
+            gen.writeStartObject().writeStartArray("results");
+            Map<String, Object> map = null;
+            try {
+                SearchResponse searchResponse = esClient.search(searchRequest, RequestOptions.DEFAULT);
+                if (searchResponse.getHits().getTotalHits().value > 0) {
+                    for (SearchHit hit : searchResponse.getHits().getHits()) {
+                        gen.writeStartObject();
+                        map = hit.getSourceAsMap();
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            gen.write(entry.getKey(), entry.getValue().toString());
+                        }
+                        gen.writeEnd();
                     }
-                    gen.writeEnd();
+                    gen.writeEnd().writeEnd();
                 }
-                gen.writeEnd(); // array results
-                gen.writeEnd(); // object
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        gen.close();
-        System.out.println("Hello: " + baos.toString());
         return baos.toString();
     }
 
@@ -325,9 +287,9 @@ public class Elasticsearch {
     public String datafiles(@Context HttpServletRequest request, @QueryParam("maxResults") int maxResults)
             throws ElasticsearchException, IOException {
 
-        JsonReader r = Json.createReader(request.getInputStream());
-        JsonObject o = r.readObject();
-        String text = o.getString("text");
+        String text = Json.createReader(request.getInputStream())
+                .readObject()
+                .getString("text");
         return searchResult("datafile", text, maxResults);
 
     }
@@ -339,9 +301,9 @@ public class Elasticsearch {
     public String datasets(@Context HttpServletRequest request, @QueryParam("maxResults") int maxResults)
             throws ElasticsearchException, IOException {
 
-        JsonReader r = Json.createReader(request.getInputStream());
-        JsonObject o = r.readObject();
-        String text = o.getString("text");
+        String text = Json.createReader(request.getInputStream())
+                .readObject()
+                .getString("text");
         return searchResult("dataset", text, maxResults);
 
     }
@@ -353,9 +315,9 @@ public class Elasticsearch {
     public String investigations(@Context HttpServletRequest request, @QueryParam("maxResults") int maxResults)
             throws ElasticsearchException, IOException {
 
-        JsonReader r = Json.createReader(request.getInputStream());
-        JsonObject o = r.readObject();
-        String text = o.getString("text");
+        String text = Json.createReader(request.getInputStream())
+                .readObject()
+                .getString("text");
         return searchResult("investigation", text, maxResults);
 
     }
