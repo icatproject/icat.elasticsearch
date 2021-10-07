@@ -107,7 +107,11 @@ public class Elasticsearch {
 //
 //		logger.info("Initialized Elasticsearch with required_property: " + required_property);
     }
-
+    
+    /**
+     * Test "Welcome to Hello world" end point
+     * @return String "Hello, World!!!"
+     */
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
