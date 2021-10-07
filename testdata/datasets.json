@@ -1,0 +1,668 @@
+[
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/legal Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6481",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6481
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/lib Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6482",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6482
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/config Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6483",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6483
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/osgi Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6484",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6484
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/common Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6485",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6485
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/h2db Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6486",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6486
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/bin Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6487",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6487
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/modules Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6488",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6488
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "glassfish/META-INF Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6489",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6489
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2050"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "h2db/service Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6490",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6490
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2051"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "h2db/bin Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6491",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6491
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2051"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "mq/legal Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6492",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6492
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2052"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "mq/etc Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6493",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6493
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2052"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "mq/examples Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6494",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6494
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2052"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "mq/javadoc Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221346"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6495",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6495
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2052"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "mq/lib Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221347"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221347"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6496",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6496
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2052"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "mq/bin Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221347"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221347"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6497",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6497
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2052"
+            }
+        ]
+    ],
+    [
+        "Dataset",
+        null,
+        [
+            {
+                "type": "TextField",
+                "name": "text",
+                "value": "mq/empty Integration Test DatasetType Integration Test DatasetType"
+            },
+            {
+                "type": "StringField",
+                "name": "startDate",
+                "value": "202109221347"
+            },
+            {
+                "type": "StringField",
+                "name": "endDate",
+                "value": "202109221347"
+            },
+            {
+                "type": "StringField",
+                "name": "id",
+                "value": "6498",
+                "store": true
+            },
+            {
+                "type": "SortedDocValuesField",
+                "name": "id",
+                "value": 6498
+            },
+            {
+                "type": "StringField",
+                "name": "investigation",
+                "value": "2052"
+            }
+        ]
+    ]
+]
