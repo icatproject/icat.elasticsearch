@@ -80,7 +80,12 @@ public class Elasticsearch {
         esClient = new RestHighLevelClient(
                 RestClient.builder(new HttpHost(host, port, protocol)));
     }
-
+    
+    /**
+     * Note: Disabled due to the required_property check. 
+     * Can be bypassed by adding the property with a dummy value in run.properties
+     * Permanent fix: To be investigated
+     */
     @PostConstruct
     private void init() {
 //		CheckedProperties props = new CheckedProperties();
