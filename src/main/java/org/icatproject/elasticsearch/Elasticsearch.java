@@ -333,6 +333,15 @@ public class Elasticsearch {
 
     }
 
+    /**
+     * 
+     * @param request Json formatted input parameter
+     * @param maxResults max number of results to be returned by ES
+     * @return json formatted search results
+     * @throws ElasticsearchException
+     * @throws IOException 
+     * End point to search and query investigations index
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
