@@ -1,0 +1,80 @@
+GET /_cat/indices
+
+PUT investigation
+{
+  "mappings": {
+    "properties": {
+      "id": {"type": "keyword"},
+      "text": {"type": "text"},
+      "startDate": {"type":"date"},
+      "endDate": {"type":"date"}
+    }
+  }
+}
+
+PUT investigation/_doc/1
+{
+  "id": 1,
+  "text": "1 glassfish Integration_Test_Facility Integration Test InvestigationType glassfish",
+  "startDate": "202109221346",
+  "endDate": "202109221346"
+}
+
+# Investigation
+GET investigation/_mapping
+
+POST /investigation/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+POST /investigation/_search
+{
+  "query": {
+    "match": {
+      "text": {
+        "query": "Test"
+      }
+    }
+  }
+}
+
+DELETE investigation/_doc/3poPSXwBb6wVOsyrrMQN
+DELETE investigation
+
+# Dataset
+GET dataset/_mapping
+
+POST /dataset/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+DELETE dataset/_doc/3poPSXwBb6wVOsyrrMQN
+
+DELETE dataset
+
+# Datafile
+GET datafile/_mapping
+
+POST /datafile/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+DELETE datafile/_doc/3poPSXwBb6wVOsyrrMQN
+
+DELETE datafile
+
+PUT /metadata/_settings
+{
+  "settings": {
+    "index.blocks.write": true
+  }
+}
