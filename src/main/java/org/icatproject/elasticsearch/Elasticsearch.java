@@ -139,6 +139,15 @@ public class Elasticsearch {
     }
     
 
+    /**
+     * 
+     * @param request Json formatted input parameter
+     * @throws ElasticsearchException 
+     * Modify function which calls the (private) add function return
+     * Executes an Add query or Update query depending on whether the id value is set
+     * Most of the function implemented has been retained to match icat.lucune
+     * ToDo: Improve or optimise function implementation
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("modify")
@@ -166,16 +175,7 @@ public class Elasticsearch {
                 Long id = (ev == Event.VALUE_NULL) ? null : parser.getLong();
                 ev = parser.next();
                 if (ev == Event.VALUE_NULL) {
-//                    try {
-//                        IndexBucket bucket = indexBuckets.computeIfAbsent(entityName, k -> createBucket(k));
-//                        if (bucket.locked.get()) {
-//                            throw new ElasticsearchException(HttpURLConnection.HTTP_NOT_ACCEPTABLE,
-//                                    "Lucene locked for " + entityName);
-//                        }
-//                        bucket.indexWriter.deleteDocuments(new Term("id", Long.toString(id)));
-//                    } catch (IOException e) {
-//                        throw new ElasticsearchException(HttpURLConnection.HTTP_INTERNAL_ERROR, e.getMessage());
-//                    }
+//                    // TODO
                 } else {
                     add(request, entityName, When.Sometime, parser, id);
                 }
