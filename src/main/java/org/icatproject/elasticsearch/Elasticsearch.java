@@ -264,6 +264,18 @@ public class Elasticsearch {
         }
     }
 
+    /**
+     * 
+     * @param entityType Investigation/Datafiles/Datasets
+     * @param text search query
+     * @param maxResults max number of results to be returned
+     * @return Json string containing search results
+     * Performs a Elasticsearch search request for the given search text and entity type
+     * Constructs a json formatted complex object before returning the results.
+     * SearchSourceBuilder: Allows to build search source containing the query string,
+     * size(or range), timeout value and many more.
+     * SearchRequest: A request to execute search against one or more indices (or all).
+     */
     private String searchResult(String entityType, String text, int maxResults) {
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder()
