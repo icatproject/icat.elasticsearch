@@ -10,8 +10,6 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonParser;
 import javax.json.stream.JsonParser.Event;
@@ -68,7 +66,13 @@ public class Elasticsearch {
     private final String protocol;
     private final RestHighLevelClient esClient;
 
+    /**
+     * The Java High Level REST Client works on top of the Java Low Level REST client. 
+     * Its main goal is to expose API specific methods, that accept request objects as an argument and return response objects, 
+     * so that request marshalling and response un-marshalling is handled by the client itself.
+     */
     public Elasticsearch() {
+        // Elasticsearch constants - to be moved into a config file
         this.index = "investigations";
         this.protocol = "http";
         this.host = "localhost";
