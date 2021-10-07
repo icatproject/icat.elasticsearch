@@ -137,17 +137,7 @@ public class Elasticsearch {
         gen.close();
         return baos.toString();
     }
-
-    @GET
-    @Path("hello")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String hello() {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        JsonGenerator gen = Json.createGenerator(baos);
-        gen.writeStartObject().write("Hello", "World").writeEnd();
-        gen.close();
-        return baos.toString();
-    }
+    
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
