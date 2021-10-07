@@ -191,6 +191,19 @@ public class Elasticsearch {
 
     }
 
+    /**
+     * 
+     * @param request Json formatted input parameter
+     * @param entityName Investigation/Datafiles/Datasets
+     * @param when Data value
+     * @param parser parsed json input
+     * @param id id of the entry if present
+     * @throws ElasticsearchException
+     * @throws IOException 
+     * Performs an Add query (index) or Update query depending on whether the id value is set
+     * Only string value events have been implemented
+     * ToDo: Numeric & object events
+     */
     private void add(HttpServletRequest request, String entityName, When when, JsonParser parser, Long id) throws ElasticsearchException, IOException {
 
         AttributeName attName = null;
