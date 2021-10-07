@@ -1,0 +1,64 @@
+[[
+    "Investigation",
+    null,
+    [
+        {
+            "type": "TextField",
+            "name": "text",
+            "value": "1 mq Integration_Test_Facility Integration Test InvestigationType mq"
+        },
+        {
+            "type": "StringField",
+            "name": "startDate",
+            "value": "202109221346"
+        },
+        {
+            "type": "StringField",
+            "name": "endDate",
+            "value": "202109221346"
+        },
+        {
+            "type": "SortedDocValuesField",
+            "name": "id",
+            "value": 2052
+        },
+        {
+            "type": "StringField",
+            "name": "id",
+            "value": "2052",
+            "store": true
+        }
+    ]
+],
+[
+    "Investigation",
+    null,
+    [
+        {
+            "type": "TextField",
+            "name": "text",
+            "value": "1 empty Integration_Test_Facility Integration Test InvestigationType empty"
+        },
+        {
+            "type": "StringField",
+            "name": "startDate",
+            "value": "202109221347"
+        },
+        {
+            "type": "StringField",
+            "name": "endDate",
+            "value": "202109221347"
+        },
+        {
+            "type": "SortedDocValuesField",
+            "name": "id",
+            "value": 2053
+        },
+        {
+            "type": "StringField",
+            "name": "id",
+            "value": "2053",
+            "store": true
+        }
+    ]
+]]
