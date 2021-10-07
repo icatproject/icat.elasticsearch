@@ -123,6 +123,10 @@ public class Elasticsearch {
         return baos.toString();
     }
 
+    /**
+     * Version end point
+     * @return icat.elasticsearch version
+     */
     @GET
     @Path("version")
     @Produces(MediaType.APPLICATION_JSON)
